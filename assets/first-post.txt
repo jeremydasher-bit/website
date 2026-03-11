@@ -1,0 +1,3 @@
+First post.
+
+Replace with your own blog text. You can also point content.json to real .docx or HTML URLs.

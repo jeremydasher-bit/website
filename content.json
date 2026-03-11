@@ -1,0 +1,19 @@
+{
+  "Photos": [
+    { "name": "Landscape_01.jpg", "type": "image", "url": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80" },
+    { "name": "Mountain_View.jpg", "type": "image", "url": "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&q=80" },
+    { "name": "Forest_Path.jpg", "type": "image", "url": "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&q=80" },
+    { "name": "Sunset_Hills.jpg", "type": "image", "url": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80" }
+  ],
+  "Blogs": [
+    { "name": "Welcome.txt", "type": "doc", "url": "./assets/welcome.txt" },
+    { "name": "First_Post.doc", "type": "doc", "url": "./assets/first-post.txt" }
+  ],
+  "Documents": [
+    { "name": "About_Me.txt", "type": "doc", "url": "./assets/about.txt" },
+    { "name": "Resume.doc", "type": "doc", "url": "./assets/resume.txt" }
+  ],
+  "Download": [
+    { "name": "Portfolio_Sample.pdf", "type": "doc", "url": "https://jeremydasher.com" }
+  ]
+}
