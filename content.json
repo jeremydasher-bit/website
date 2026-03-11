@@ -1,19 +1,51 @@
 {
-  "Photos": [
-    { "name": "Landscape_01.jpg", "type": "image", "url": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80" },
-    { "name": "Mountain_View.jpg", "type": "image", "url": "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&q=80" },
-    { "name": "Forest_Path.jpg", "type": "image", "url": "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&q=80" },
-    { "name": "Sunset_Hills.jpg", "type": "image", "url": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80" }
+  "Photos": {
+    "subfolders": ["Projects", "People", "Clients", "For fun!"],
+    "files": []
+  },
+  "Projects": [
+    { "name": "1C9A9762_edited.jpg", "type": "image", "url": "./assets/photos/Projects/1C9A9762_edited.jpg" },
+    { "name": "1C9A9789_edited.jpg", "type": "image", "url": "./assets/photos/Projects/1C9A9789_edited.jpg" },
+    { "name": "DSC01370_edited.jpg", "type": "image", "url": "./assets/photos/Projects/DSC01370_edited.jpg" },
+    { "name": "DSC01430_edited.jpg", "type": "image", "url": "./assets/photos/Projects/DSC01430_edited.jpg" },
+    { "name": "DSC01436_edited.jpg", "type": "image", "url": "./assets/photos/Projects/DSC01436_edited.jpg" },
+    { "name": "IMG_8208_edited.jpg", "type": "image", "url": "./assets/photos/Projects/IMG_8208_edited.jpg" },
+    { "name": "IMG_8301_edited.jpg", "type": "image", "url": "./assets/photos/Projects/IMG_8301_edited.jpg" }
+  ],
+  "People": [
+    { "name": "1C9A9882_edited.jpg", "type": "image", "url": "./assets/photos/People/1C9A9882_edited.jpg" },
+    { "name": "IMG_3095_edited.jpg", "type": "image", "url": "./assets/photos/People/IMG_3095_edited.jpg" },
+    { "name": "IMG_3274_edited.jpg", "type": "image", "url": "./assets/photos/People/IMG_3274_edited.jpg" },
+    { "name": "IMG_7929_edited.jpg", "type": "image", "url": "./assets/photos/People/IMG_7929_edited.jpg" },
+    { "name": "IMG_7960_edited.jpg", "type": "image", "url": "./assets/photos/People/IMG_7960_edited.jpg" },
+    { "name": "IMG_8109_edited.jpg", "type": "image", "url": "./assets/photos/People/IMG_8109_edited.jpg" }
+  ],
+  "Clients": [
+    { "name": "1X7A0076_edited.jpg", "type": "image", "url": "./assets/photos/Clients/1X7A0076_edited.jpg" },
+    { "name": "1X7A0955_edited.jpg", "type": "image", "url": "./assets/photos/Clients/1X7A0955_edited.jpg" },
+    { "name": "1X7A1013_comp.jpg", "type": "image", "url": "./assets/photos/Clients/1X7A1013_comp.jpg" },
+    { "name": "Copy of DSC04979.png", "type": "image", "url": "./assets/photos/Clients/Copy of DSC04979.png" },
+    { "name": "DSC04113.png", "type": "image", "url": "./assets/photos/Clients/DSC04113.png" },
+    { "name": "DSC04145.png", "type": "image", "url": "./assets/photos/Clients/DSC04145.png" },
+    { "name": "DSC04283.png", "type": "image", "url": "./assets/photos/Clients/DSC04283.png" },
+    { "name": "DSC09082.png", "type": "image", "url": "./assets/photos/Clients/DSC09082.png" },
+    { "name": "IMG_8243_edited.jpg", "type": "image", "url": "./assets/photos/Clients/IMG_8243_edited.jpg" },
+    { "name": "IMG_8301_edited.jpg", "type": "image", "url": "./assets/photos/Clients/IMG_8301_edited.jpg" }
+  ],
+  "For fun!": [
+    { "name": "DJI_0051_edited.jpg", "type": "image", "url": "./assets/photos/For fun!/DJI_0051_edited.jpg" },
+    { "name": "IMG_4016_edited.jpg", "type": "image", "url": "./assets/photos/For fun!/IMG_4016_edited.jpg" },
+    { "name": "IMG_4179_edited.jpg", "type": "image", "url": "./assets/photos/For fun!/IMG_4179_edited.jpg" },
+    { "name": "IMG_5813_edited.jpg", "type": "image", "url": "./assets/photos/For fun!/IMG_5813_edited.jpg" },
+    { "name": "IMG_5856_edited.jpg", "type": "image", "url": "./assets/photos/For fun!/IMG_5856_edited.jpg" },
+    { "name": "IMG_5943_edited.jpg", "type": "image", "url": "./assets/photos/For fun!/IMG_5943_edited.jpg" },
+    { "name": "IMG_7408_edited.jpg", "type": "image", "url": "./assets/photos/For fun!/IMG_7408_edited.jpg" },
+    { "name": "IMG_7427_edited.jpg", "type": "image", "url": "./assets/photos/For fun!/IMG_7427_edited.jpg" }
   ],
   "Blogs": [
-    { "name": "Welcome.txt", "type": "doc", "url": "./assets/welcome.txt" },
-    { "name": "First_Post.doc", "type": "doc", "url": "./assets/first-post.txt" }
+    { "name": "Welcome.txt", "type": "doc", "url": "./assets/welcome.txt" }
   ],
   "Documents": [
-    { "name": "About_Me.txt", "type": "doc", "url": "./assets/about.txt" },
-    { "name": "Resume.doc", "type": "doc", "url": "./assets/resume.txt" }
-  ],
-  "Download": [
-    { "name": "Portfolio_Sample.pdf", "type": "doc", "url": "https://jeremydasher.com" }
+    { "name": "About me.txt", "type": "doc", "url": "./assets/about.txt" }
   ]
 }

@@ -10,8 +10,10 @@ html, body {
   overflow: hidden;
   font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, Arial, sans-serif;
   font-size: 11px;
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath fill='%23000' d='M0 0l4 4 20-20 4 4-24 24-4-4z'/%3E%3Cpath fill='%23fff' d='M1 1l4 4 18-18 3 3-21 21-4-4z'/%3E%3C/svg%3E") 0 0, auto;
   user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  --taskbar-height: 28px;
 }
 
 /* Desktop - Bliss-style wallpaper; use assets/bliss.jpg if present for local/offline */
@@ -22,7 +24,7 @@ html, body {
   background-image: url("./assets/bliss.jpg"), url("https://upload.wikimedia.org/wikipedia/en/0/0a/Bliss_%28Windows_XP%29.png");
   background-size: cover;
   background-position: center;
-  padding-bottom: 28px;
+  padding-bottom: calc(28px + env(safe-area-inset-bottom, 0));
 }
 
 /* Desktop icons */
@@ -71,6 +73,10 @@ html, body {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23ffcc00' d='M2 6h12l2 4h14v16H2z'/%3E%3Cpath fill='%23ffd940' d='M2 6h12l1 2h15v2H3z'/%3E%3C/svg%3E");
 }
 
+.icon-minesweeper {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='12' fill='%23c0c0c0' stroke='%23808080' stroke-width='1'/%3E%3Ccircle cx='16' cy='14' r='3' fill='%23000'/%3E%3Cpath fill='none' stroke='%23000' stroke-width='2' d='M16 18v6'/%3E%3Cpath fill='%23000' d='M10 10l-2 2 2 2 2-2z'/%3E%3Cpath fill='%23000' d='M22 10l-2 2 2 2 2-2z'/%3E%3Cpath fill='%23000' d='M10 22l2-2 2 2-2 2z'/%3E%3Cpath fill='%23000' d='M22 22l2-2 2 2-2 2z'/%3E%3C/svg%3E");
+}
+
 .desktop-icon-label {
   text-align: center;
   color: white;
@@ -85,7 +91,8 @@ html, body {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 28px;
+  height: calc(28px + env(safe-area-inset-bottom, 0));
+  padding-bottom: env(safe-area-inset-bottom, 0);
   background: linear-gradient(180deg, #c0c0c0 0%, #808080 100%);
   border-top: 1px solid #fff;
   display: flex;
@@ -170,6 +177,38 @@ html, body {
 .taskbar-clock {
   font-size: 11px;
   font-weight: normal;
+}
+
+/* Shutdown overlay - Win98 style */
+.win98-shutdown-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000080;
+}
+
+.win98-shutdown-overlay.hidden {
+  display: none;
+}
+
+.win98-shutdown-screen {
+  text-align: center;
+  color: #fff;
+  font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, Arial, sans-serif;
+}
+
+.win98-shutdown-message {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.win98-shutdown-sub {
+  font-size: 11px;
+  color: #c0c0c0;
 }
 
 /* Start menu */
@@ -311,6 +350,98 @@ html, body {
   border-top: none;
   margin: 0 2px 2px 2px;
   min-height: 120px;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Notepad window */
+.win98-notepad {
+  min-width: 400px;
+  min-height: 300px;
+}
+
+.win98-notepad-menubar {
+  display: flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 4px;
+  background: #c0c0c0;
+  border: 1px solid #808080;
+  border-top: none;
+  margin: 0 2px 0 2px;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.win98-notepad-menu {
+  padding: 2px 8px;
+  font-size: 11px;
+  cursor: default;
+}
+
+.win98-notepad-menu:hover {
+  background: #000080;
+  color: white;
+}
+
+.win98-notepad-client {
+  flex: 1;
+  overflow: auto;
+  padding: 0;
+  background: #fff;
+  border: 1px solid #808080;
+  border-top: none;
+  margin: 0 2px 2px 2px;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.win98-notepad-text {
+  flex: 1;
+  margin: 0;
+  padding: 8px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #000;
+  background: #fff;
+  border: none;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  user-select: text;
+  min-height: 100%;
+}
+
+.win98-notepad-external {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px;
+  text-align: center;
+  color: #000;
+}
+
+.win98-notepad-external p {
+  margin: 0;
+  font-size: 11px;
+}
+
+.win98-notepad-open-btn {
+  padding: 4px 12px;
+  font-size: 11px;
+  cursor: pointer;
+  background: linear-gradient(180deg, #c0c0c0 0%, #808080 100%);
+  border: 1px solid #fff;
+  border-bottom-color: #404040;
+  border-right-color: #404040;
+  box-shadow: inset 1px 1px 0 #fff;
+}
+
+.win98-notepad-open-btn:hover {
+  background: linear-gradient(180deg, #e0e0e0 0%, #a0a0a0 100%);
 }
 
 /* Explorer file list - Details view */
@@ -360,8 +491,218 @@ html, body {
 .file-icon-image { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect fill='%23c0c0c0' stroke='%23808080' width='14' height='14' x='1' y='1'/%3E%3Ccircle fill='%23ff0000' cx='5' cy='5' r='2'/%3E%3Cpath fill='%23008000' d='M1 12l4-5 3 2 4-6 3 6z'/%3E%3C/svg%3E"); }
 .file-icon-video { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect fill='%23000' width='16' height='16'/%3E%3Cpolygon fill='%23fff' points='6,4 6,12 12,8'/%3E%3C/svg%3E"); }
 .file-icon-doc { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect fill='%23fff' stroke='%23808080' width='12' height='14' x='2' y='1'/%3E%3Cline stroke='%23000' x1='4' y1='5' x2='12' y2='5'/%3E%3Cline stroke='%23000' x1='4' y1='8' x2='12' y2='8'/%3E%3Cline stroke='%23000' x1='4' y1='11' x2='10' y2='11'/%3E%3C/svg%3E"); }
+.file-icon-folder { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23ffcc00' d='M2 4h6l1 2h7v8H2z'/%3E%3C/svg%3E"); }
 
-/* Image viewer / modal */
+/* Minesweeper */
+.win98-minesweeper {
+  width: auto;
+  min-width: 200px;
+  padding: 0;
+}
+
+.win98-minesweeper .win98-ms-client {
+  padding: 8px 10px 10px;
+  background: #c0c0c0;
+  border: 1px solid #808080;
+  border-top: none;
+  margin: 0 2px 2px 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.win98-ms-top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: #808080 #fff #fff #808080;
+  width: fit-content;
+}
+
+.win98-ms-counter {
+  width: 39px;
+  height: 23px;
+  background: #000;
+  color: #f00;
+  font-family: "MS Sans Serif", sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 3px;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.win98-ms-face {
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+  background: #c0c0c0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26'%3E%3Ccircle cx='13' cy='13' r='11' fill='%23f5c542' stroke='%23880' stroke-width='1'/%3E%3Cellipse cx='9' cy='10' rx='2' ry='2.5' fill='%23000'/%3E%3Cellipse cx='17' cy='10' rx='2' ry='2.5' fill='%23000'/%3E%3Cpath fill='none' stroke='%23000' stroke-width='1.5' d='M8 17 Q13 21 18 17'/%3E%3C/svg%3E");
+  background-size: 22px 22px;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.win98-ms-face:active {
+  border-color: #808080 #fff #fff #808080;
+  padding: 1px 0 0 1px;
+}
+
+.win98-ms-face.lost {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26'%3E%3Ccircle cx='13' cy='13' r='11' fill='%23f5c542' stroke='%23880' stroke-width='1'/%3E%3Ccircle cx='9' cy='10' r='2.5' fill='%23000'/%3E%3Ccircle cx='17' cy='10' r='2.5' fill='%23000'/%3E%3Cpath stroke='%23c00' stroke-width='2' d='M7 7 L19 19 M19 7 L7 19'/%3E%3C/svg%3E");
+  background-size: 22px 22px;
+}
+
+.win98-ms-face.won {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26'%3E%3Ccircle cx='13' cy='13' r='11' fill='%23f5c542' stroke='%23880' stroke-width='1'/%3E%3Cpath fill='%23000' d='M8 12 L11 15 L18 8' stroke='%23000' stroke-width='1' fill-opacity='.8'/%3E%3C/svg%3E");
+  background-size: 22px 22px;
+}
+
+.win98-ms-timer {
+  width: 39px;
+  height: 23px;
+  background: #000;
+  color: #f00;
+  font-family: "MS Sans Serif", sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 3px;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.win98-ms-grid {
+  display: inline-grid;
+  gap: 0;
+  border: 2px solid;
+  border-color: #808080 #fff #fff #808080;
+  padding: 2px;
+  background: #c0c0c0;
+}
+
+.win98-ms-cell {
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: 1px solid;
+  border-color: #fff #808080 #808080 #fff;
+  background: linear-gradient(135deg, #c0c0c0 0%, #a0a0a0 100%);
+  font-family: "MS Sans Serif", sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  line-height: 1;
+  user-select: none;
+}
+
+.win98-ms-cell:hover:not(.revealed):not(.flagged) {
+  background: linear-gradient(135deg, #d0d0d0 0%, #b0b0b0 100%);
+}
+
+.win98-ms-cell.revealed {
+  border: 1px solid #808080;
+  background: #c0c0c0;
+  cursor: default;
+}
+
+.win98-ms-cell.revealed.mine {
+  background: #c0c0c0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Ccircle cx='9' cy='9' r='6' fill='%23000'/%3E%3Cpath fill='none' stroke='%23000' stroke-width='1' d='M9 3v3 M9 12v3 M3 9h3 M12 9h3'/%3E%3Ccircle cx='9' cy='9' r='1.5' fill='%23fff'/%3E%3C/svg%3E");
+  background-size: 14px 14px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.win98-ms-cell.revealed.mine-hit {
+  background-color: #f00;
+}
+
+.win98-ms-cell.flagged {
+  background: linear-gradient(135deg, #c0c0c0 0%, #a0a0a0 100%);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath fill='%23f00' d='M4 2v14h2V8l6 4V2z'/%3E%3Crect x='3' y='1' width='2' height='4' fill='%23000'/%3E%3C/svg%3E");
+  background-size: 12px 14px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.win98-ms-cell.num-1 { color: #0000ff; }
+.win98-ms-cell.num-2 { color: #008000; }
+.win98-ms-cell.num-3 { color: #ff0000; }
+.win98-ms-cell.num-4 { color: #000080; }
+.win98-ms-cell.num-5 { color: #800000; }
+.win98-ms-cell.num-6 { color: #008080; }
+.win98-ms-cell.num-7 { color: #000000; }
+.win98-ms-cell.num-8 { color: #808080; }
+
+/* Sticky note (Win98 style) */
+.win98-sticky-note {
+  width: 320px;
+  min-height: 200px;
+  max-height: 360px;
+  background: #fef9c3;
+  border: 1px solid #d4c84b;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.25);
+}
+
+.win98-sticky-note .win98-titlebar {
+  background: linear-gradient(90deg, #c4a747 0%, #e0c65c 50%, #c4a747 100%);
+  color: #2a2000;
+  border-bottom: 1px solid #a08020;
+}
+
+.win98-sticky-note .win98-titlebar-buttons .minimize,
+.win98-sticky-note .win98-titlebar-buttons .maximize {
+  display: none;
+}
+
+.win98-sticky-note .win98-sticky-body {
+  flex: 1;
+  overflow: auto;
+  padding: 10px 12px 12px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background: #fef9c3;
+  border: none;
+  margin: 0;
+  min-height: 0;
+}
+
+.win98-sticky-note .win98-sticky-clippy {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.win98-sticky-note .win98-sticky-text {
+  flex: 1;
+  font-size: 11px;
+  line-height: 1.45;
+  color: #1a1a1a;
+  margin: 0;
+  user-select: text;
+}
+
 .win98-modal-overlay {
   position: fixed;
   inset: 0;
@@ -413,6 +754,208 @@ html, body {
 .win98-modal-content video {
   max-width: 100%;
   max-height: 70vh;
+}
+
+/* Image viewer with prev/next navigation */
+.win98-image-viewer {
+  background: #c0c0c0;
+  border: 2px solid #404040;
+  border-color: #fff #404040 #404040 #fff;
+  box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
+  max-width: 95vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.win98-image-viewer .win98-modal-titlebar {
+  flex-shrink: 0;
+}
+
+.win98-image-viewer-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  background: #808080;
+  min-height: 200px;
+  flex: 1;
+  min-width: 0;
+}
+
+.win98-image-viewer-img-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  max-height: calc(90vh - 80px);
+  background: #000;
+}
+
+.win98-image-viewer-img-wrap img {
+  max-width: 100%;
+  max-height: calc(90vh - 80px);
+  width: auto;
+  height: auto;
+  display: block;
+  vertical-align: middle;
+}
+
+.win98-image-nav {
+  flex-shrink: 0;
+  width: 44px;
+  height: 80px;
+  padding: 0;
+  border: 2px solid;
+  border-color: #fff #404040 #404040 #fff;
+  background: linear-gradient(180deg, #c0c0c0 0%, #808080 100%);
+  color: #000;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 1px 1px 0 #fff, 1px 1px 0 rgba(0,0,0,0.2);
+}
+
+.win98-image-nav span {
+  line-height: 1;
+  margin-top: -2px;
+}
+
+.win98-image-nav:hover {
+  background: linear-gradient(180deg, #e0e0e0 0%, #a0a0a0 100%);
+}
+
+.win98-image-nav:active {
+  border-color: #404040 #fff #fff #404040;
+  box-shadow: inset 2px 2px 2px rgba(0,0,0,0.4);
+}
+
+.win98-image-viewer-status {
+  padding: 4px 8px;
+  background: #c0c0c0;
+  border-top: 1px solid #808080;
+  font-size: 11px;
+  color: #000;
+  flex-shrink: 0;
+}
+
+/* Mobile & touch-friendly */
+@media (max-width: 768px) {
+  :root {
+    --taskbar-height: 44px;
+  }
+  .desktop {
+    padding-bottom: calc(44px + env(safe-area-inset-bottom, 0));
+  }
+  .taskbar {
+    height: calc(44px + env(safe-area-inset-bottom, 0));
+    min-height: 44px;
+  }
+  .start-btn {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 8px 12px;
+  }
+  .start-logo {
+    width: 24px;
+    height: 24px;
+  }
+  .taskbar-item {
+    min-height: 44px;
+    padding: 8px 12px;
+    min-width: 44px;
+  }
+  .taskbar-clock-wrap {
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+  }
+  .start-menu {
+    bottom: calc(44px + env(safe-area-inset-bottom, 0));
+    min-width: 220px;
+  }
+  .start-menu-item {
+    min-height: 44px;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+  }
+  .win98-window {
+    min-width: 280px;
+    max-width: 100vw;
+    max-height: calc(100vh - 50px - env(safe-area-inset-bottom, 0));
+  }
+  .win98-notepad {
+    min-width: 280px;
+    min-height: 240px;
+  }
+  .win98-titlebar {
+    min-height: 44px;
+    height: auto;
+    padding: 8px 4px;
+  }
+  .win98-titlebar-btn {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    min-height: 32px;
+    line-height: 28px;
+    font-size: 14px;
+    margin-left: 4px;
+  }
+  .win98-titlebar-btn.close {
+    font-size: 16px;
+  }
+  .desktop-icon {
+    min-height: 48px;
+    padding: 8px;
+  }
+  .desktop-icon-image {
+    width: 36px;
+    height: 36px;
+  }
+  .win98-image-viewer-content {
+    padding: 8px;
+    min-height: 160px;
+  }
+  .win98-image-nav {
+    width: 40px;
+    min-width: 40px;
+    height: 64px;
+    min-height: 64px;
+    font-size: 16px;
+  }
+  .win98-modal,
+  .win98-image-viewer {
+    max-width: 100vw;
+    max-height: calc(100vh - env(safe-area-inset-bottom, 0));
+  }
+}
+
+@media (max-width: 480px) {
+  .desktop-icons {
+    gap: 6px 20px;
+  }
+  .desktop-icon {
+    width: 72px;
+  }
+  .win98-window {
+    min-width: 260px;
+  }
+  .win98-notepad {
+    min-width: 260px;
+  }
+  .win98-file-list td,
+  .win98-file-list th {
+    padding: 6px 8px;
+    font-size: 12px;
+  }
 }
 
 .hidden { display: none !important; }

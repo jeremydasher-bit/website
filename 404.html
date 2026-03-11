@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>404 - Page Not Found</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #000080;
+      font-family: "MS Sans Serif", "Microsoft Sans Serif", Tahoma, Arial, sans-serif;
+      color: #fff;
+      text-align: center;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    }
+    .error-code {
+      font-size: 48px;
+      font-weight: bold;
+      margin-bottom: 8px;
+      text-shadow: 2px 2px 0 #000080, -1px -1px 0 #fff;
+    }
+    .error-label {
+      font-size: 18px;
+      margin-bottom: 24px;
+      color: #c0c0c0;
+    }
+    .clippy {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="error-code">404 Error</div>
+  <div class="error-label">Page not found</div>
+  <!-- Frowning Clippy - paperclip assistant with sad face -->
+  <svg class="clippy" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true">
+    <!-- Paperclip body -->
+    <path fill="#e8e6e3" stroke="#b0ada8" stroke-width="1.5" d="M32 8c-6 0-12 4-12 14v28c0 4 3 8 8 8s8-4 8-8V22c0-2-1-4-4-4s-4 2-4 4v20h-4V22c0-4 2-8 8-8s8 4 8 8v28c0 6-4 12-12 12s-12-6-12-12V22c0-10 6-14 12-14z"/>
+    <!-- Left eye (sad) -->
+    <ellipse cx="24" cy="20" rx="5" ry="6" fill="#fff" stroke="#555"/>
+    <ellipse cx="24" cy="22" rx="2" ry="2.5" fill="#111"/>
+    <!-- Right eye (sad) -->
+    <ellipse cx="40" cy="20" rx="5" ry="6" fill="#fff" stroke="#555"/>
+    <ellipse cx="40" cy="22" rx="2" ry="2.5" fill="#111"/>
+    <!-- Frown -->
+    <path fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" d="M22 36 Q32 42 42 36"/>
+  </svg>
+  <p style="font-size: 11px; color: #808080;">It looks like this page took a wrong turn.</p>
+</body>
+</html>

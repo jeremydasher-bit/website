@@ -1,3 +1,1 @@
-Welcome to my site.
-
-Add your own blog content here or replace this file.
+Uhhh yeah, didn't think I'd get this far but welcome to my site! I'm currently running custom CSS hosted on GitHub, ran through CloudFlare for speed and security, and then my domain is hosted by Squarespace. This has been a project I've been working on for a while and I'm excited to get it up and going!
