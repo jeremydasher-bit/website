@@ -115,6 +115,8 @@
         openFolder(folder);
       } else if (action === "minesweeper") {
         openMinesweeper();
+      } else if (action === "sticky-note") {
+        createStickyNote();
       } else if (action === "shutdown") {
         if (confirm("Are you sure you want to shut down?")) {
           showShutdownAnimation();
@@ -157,6 +159,7 @@
       const action = el.getAttribute("data-action");
       if (folder) openFolder(folder);
       else if (action === "minesweeper") openMinesweeper();
+      else if (action === "sticky-note") createStickyNote();
     };
     el.addEventListener(isTouch ? "click" : "dblclick", openAction);
   });
@@ -896,9 +899,7 @@
   }
 
   // Kick off
-  loadContent().then(function () {
-    createStickyNote();
-  });
+  loadContent().then(function () {});
 
   function createStickyNote() {
     const id = "win-sticky-" + Date.now();
@@ -917,7 +918,7 @@
     el.innerHTML =
       "<div class='win98-titlebar'>" +
       "<span class='win98-titlebar-icon' style='background-image:url(" + noteIconSvg + ")'></span>" +
-      "<span class='win98-titlebar-title'>Note</span>" +
+      "<span class='win98-titlebar-title'>Welcome!</span>" +
       "<div class='win98-titlebar-buttons'>" +
       "<button type='button' class='win98-titlebar-btn minimize' aria-label='Minimize'>—</button>" +
       "<button type='button' class='win98-titlebar-btn maximize' aria-label='Maximize'>□</button>" +
