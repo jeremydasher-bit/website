@@ -74,7 +74,7 @@ html, body {
 }
 
 .icon-minesweeper {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='12' fill='%23c0c0c0' stroke='%23808080' stroke-width='1'/%3E%3Ccircle cx='16' cy='14' r='3' fill='%23000'/%3E%3Cpath fill='none' stroke='%23000' stroke-width='2' d='M16 18v6'/%3E%3Cpath fill='%23000' d='M10 10l-2 2 2 2 2-2z'/%3E%3Cpath fill='%23000' d='M22 10l-2 2 2 2 2-2z'/%3E%3Cpath fill='%23000' d='M10 22l2-2 2 2-2 2z'/%3E%3Cpath fill='%23000' d='M22 22l2-2 2 2-2 2z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='17' r='10' fill='%23c0c0c0' stroke='%23808080' stroke-width='1'/%3E%3Ccircle cx='16' cy='16' r='2.5' fill='%23000'/%3E%3Cpath stroke='%23000' stroke-width='1.5' d='M16 20v5 M13 22h6'/%3E%3Cpath fill='%23000' d='M10 8l2 2 2-1 2 1 2-2-1 2 2 2-2 2-2-1-2 1-2-2z'/%3E%3Cpath fill='%23f00' d='M14 4h4v2h-4z'/%3E%3Cpath fill='%23ff0' d='M15 3h2v1h-2z'/%3E%3C/svg%3E");
 }
 
 .desktop-icon-label {
@@ -492,8 +492,8 @@ html, body {
 .file-icon-video { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect fill='%23000' width='16' height='16'/%3E%3Cpolygon fill='%23fff' points='6,4 6,12 12,8'/%3E%3C/svg%3E"); }
 .file-icon-doc { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect fill='%23fff' stroke='%23808080' width='12' height='14' x='2' y='1'/%3E%3Cline stroke='%23000' x1='4' y1='5' x2='12' y2='5'/%3E%3Cline stroke='%23000' x1='4' y1='8' x2='12' y2='8'/%3E%3Cline stroke='%23000' x1='4' y1='11' x2='10' y2='11'/%3E%3C/svg%3E"); }
 .file-icon-folder { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23ffcc00' d='M2 4h6l1 2h7v8H2z'/%3E%3C/svg%3E"); }
-/* 8-bit Windows 98 style shield icon for applications */
-.file-icon-application { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23c0c0c0' stroke='%23808080' stroke-width='1' d='M8 1L2 4v4c0 4 2 6 6 7 4-1 6-3 6-7V4L8 1z'/%3E%3Cpath fill='%23fff' stroke='%23808080' stroke-width='.5' d='M8 3l4 2v3c0 3-1 5-4 6-3-1-4-3-4-6V5l4-2z'/%3E%3Cpath fill='%23008000' d='M7 6v4l3-2-3-2z'/%3E%3C/svg%3E"); }
+/* 8-bit style shield: security shield, gray bevel, white inner, green check – crisp 16x16 */
+.file-icon-application { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23808080' d='M8 0L1 3v5c0 4 3 5 7 6 4-1 7-2 7-6V3L8 0z'/%3E%3Cpath fill='%23c0c0c0' d='M8 1L2 4v4c0 3 2 4 6 5 4-1 6-2 6-5V4L8 1z'/%3E%3Cpath fill='%23fff' d='M8 2.5L4 4.5v3c0 2 1.5 3 4 3.5 2.5-.5 4-1.5 4-3.5v-3L8 2.5z'/%3E%3Cpath fill='%2300a010' stroke='%23005000' stroke-width='.5' d='M5.5 7.5L7 9l3.5-3.5'/%3E%3C/svg%3E"); }
 
 /* Minesweeper */
 .win98-minesweeper {
@@ -569,6 +569,33 @@ html, body {
 .win98-ms-face.won {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26'%3E%3Ccircle cx='13' cy='13' r='11' fill='%23f5c542' stroke='%23880' stroke-width='1'/%3E%3Cpath fill='%23000' d='M8 12 L11 15 L18 8' stroke='%23000' stroke-width='1' fill-opacity='.8'/%3E%3C/svg%3E");
   background-size: 22px 22px;
+}
+
+.win98-ms-flag-btn {
+  width: 28px;
+  height: 26px;
+  padding: 0;
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+  background: #c0c0c0;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.win98-ms-flag-btn:active {
+  border-color: #808080 #fff #fff #808080;
+  padding: 1px 0 0 1px;
+}
+
+.win98-ms-flag-btn.win98-ms-flag-active {
+  border-color: #004078;
+  background: #0080ff;
+  color: #fff;
 }
 
 .win98-ms-timer {
@@ -653,20 +680,20 @@ html, body {
 .win98-ms-cell.num-7 { color: #000000; }
 .win98-ms-cell.num-8 { color: #808080; }
 
-/* Sticky note (Win98 style) */
+/* Sticky note – old ruled paper look with faded lines */
 .win98-sticky-note {
-  width: 320px;
+  width: 300px;
   min-height: 200px;
-  max-height: 360px;
-  background: #fef9c3;
-  border: 1px solid #d4c84b;
-  box-shadow: 2px 2px 6px rgba(0,0,0,0.25);
+  max-height: 340px;
+  background: #f5e8a8;
+  border: 1px solid #c9b85c;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.2), inset 0 0 0 1px rgba(255,255,255,0.15);
 }
 
 .win98-sticky-note .win98-titlebar {
-  background: linear-gradient(90deg, #c4a747 0%, #e0c65c 50%, #c4a747 100%);
+  background: linear-gradient(90deg, #b89840 0%, #d4b04a 50%, #b89840 100%);
   color: #2a2000;
-  border-bottom: 1px solid #a08020;
+  border-bottom: 1px solid #8a7020;
 }
 
 .win98-sticky-note .win98-titlebar-buttons .minimize,
@@ -677,11 +704,17 @@ html, body {
 .win98-sticky-note .win98-sticky-body {
   flex: 1;
   overflow: auto;
-  padding: 10px 12px 12px;
+  padding: 14px 16px 16px;
   display: flex;
-  gap: 12px;
+  gap: 14px;
   align-items: flex-start;
-  background: #fef9c3;
+  /* Faded horizontal lines – old sticky note ruled look */
+  background: repeating-linear-gradient(
+    transparent,
+    transparent 21px,
+    rgba(0,0,0,0.06) 21px,
+    rgba(0,0,0,0.06) 22px
+  ), linear-gradient(180deg, #f8eeb0 0%, #f0e090 100%);
   border: none;
   margin: 0;
   min-height: 0;
@@ -689,8 +722,8 @@ html, body {
 
 .win98-sticky-note .win98-sticky-clippy {
   flex-shrink: 0;
-  width: 64px;
-  height: 64px;
+  width: 52px;
+  height: 52px;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -699,10 +732,13 @@ html, body {
 .win98-sticky-note .win98-sticky-text {
   flex: 1;
   font-size: 11px;
-  line-height: 1.45;
-  color: #1a1a1a;
+  line-height: 22px;
+  color: #2a2610;
   margin: 0;
+  padding-top: 2px;
   user-select: text;
+  max-width: 100%;
+  word-wrap: break-word;
 }
 
 .win98-modal-overlay {
@@ -889,9 +925,13 @@ html, body {
     align-items: center;
   }
   .win98-window {
-    min-width: 280px;
-    max-width: 100vw;
-    max-height: calc(100vh - 50px - env(safe-area-inset-bottom, 0));
+    min-width: 0;
+    width: 100% !important;
+    max-width: 100vw !important;
+    left: 0 !important;
+    top: 0 !important;
+    height: calc(100vh - var(--taskbar-height) - env(safe-area-inset-bottom, 0)) !important;
+    max-height: calc(100vh - var(--taskbar-height) - env(safe-area-inset-bottom, 0)) !important;
   }
   .win98-notepad {
     min-width: 280px;

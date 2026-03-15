@@ -40,6 +40,22 @@
   const startBtn = document.getElementById("start-btn");
   const clockEl = document.getElementById("clock");
 
+  function getTaskbarHeight() {
+    const tb = document.getElementById("taskbar");
+    return tb ? tb.offsetHeight : 28;
+  }
+
+  function centerWindow(el, w, h) {
+    if (window.innerWidth <= 768) return;
+    const th = getTaskbarHeight();
+    const vw = window.innerWidth;
+    const vh = window.innerHeight - th;
+    const width = w != null ? w : (el.offsetWidth || 380);
+    const height = h != null ? h : (el.offsetHeight || 300);
+    el.style.left = Math.max(0, (vw - width) / 2) + "px";
+    el.style.top = Math.max(0, (vh - height) / 2) + "px";
+  }
+
   // Load content manifest (use content.json if available, else keep default)
   function loadContent() {
     return fetch("content.json")
@@ -165,6 +181,7 @@
     const displayName = FOLDER_DISPLAY_NAMES[folderName] || folderName;
     const win = createExplorerWindow(folderName, path, files, { subfolders: subfolders, parentFolderName: parentFolderName, displayName: displayName });
     windowsContainer.appendChild(win.el);
+    centerWindow(win.el, 380, 300);
     bringToFront(win.el);
     addTaskbarEntry(win);
   }
@@ -175,6 +192,7 @@
     const files = contentManifest[subfolderName] || [];
     const win = createExplorerWindow(subfolderName, path, files);
     windowsContainer.appendChild(win.el);
+    centerWindow(win.el, 380, 300);
     bringToFront(win.el);
     addTaskbarEntry(win);
   }
@@ -388,7 +406,7 @@
     const COLS = 9;
     const MINES = 10;
     const id = "win-minesweeper-" + Date.now();
-    const msIconSvg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='6' fill='%23c0c0c0' stroke='%23808080'/%3E%3Ccircle cx='8' cy='7' r='1.5' fill='%23000'/%3E%3Cpath stroke='%23000' stroke-width='1' d='M8 10v2 M6 11h4'/%3E%3Cpath fill='%23000' d='M5 5l1 1 1-1 1 1-1 1 1 1-2-2z'/%3E%3C/svg%3E";
+    const msIconSvg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='9' r='5' fill='%23c0c0c0' stroke='%23808080' stroke-width='1'/%3E%3Ccircle cx='8' cy='8' r='1.5' fill='%23000'/%3E%3Cpath stroke='%23000' stroke-width='1' d='M8 11v3 M6.5 12.5h3'/%3E%3Cpath fill='%23000' d='M5 4l1 1.5 1-1 1 1-1 1.5 1 1-2-2z'/%3E%3Cpath fill='%23f00' d='M7 3h2v1H7z'/%3E%3Cpath fill='%23ff0' d='M7.5 2.5h1v1h-1z'/%3E%3C/svg%3E";
     const el = document.createElement("div");
     el.className = "win98-window win98-minesweeper";
     el.id = id;
@@ -408,6 +426,7 @@
       "<div class='win98-ms-top'>" +
       "<div class='win98-ms-counter'>010</div>" +
       "<button type='button' class='win98-ms-face' aria-label='New game'></button>" +
+      "<button type='button' class='win98-ms-flag-btn' aria-label='Flag mode' title='Flag mode (for touch)'>🚩</button>" +
       "<div class='win98-ms-timer'>000</div>" +
       "</div>" +
       "<div class='win98-ms-grid'></div>" +
@@ -415,12 +434,14 @@
     const titleBar = el.querySelector(".win98-titlebar");
     const gridEl = el.querySelector(".win98-ms-grid");
     const faceBtn = el.querySelector(".win98-ms-face");
+    const flagBtn = el.querySelector(".win98-ms-flag-btn");
     const counterEl = el.querySelector(".win98-ms-counter");
     const timerEl = el.querySelector(".win98-ms-timer");
     let grid = [];
     let firstClick = true;
     let gameOver = false;
     let won = false;
+    let flagMode = false;
     let timerInterval = null;
     let elapsed = 0;
     function pad3(n) {
@@ -493,13 +514,13 @@
       counterEl.textContent = pad3(MINES - flags);
     }
     function revealCell(r, c) {
-      const cell = grid[r][c];
-      if (cell.isRevealed || cell.isFlagged || gameOver) return;
       if (firstClick) {
         firstClick = false;
         placeMines(r, c);
         startTimer();
       }
+      const cell = grid[r][c];
+      if (!cell || cell.isRevealed || cell.isFlagged || gameOver) return;
       if (cell.isMine) {
         cell.isRevealed = true;
         gameOver = true;
@@ -559,6 +580,7 @@
     }
     function toggleFlag(r, c) {
       if (gameOver) return;
+      if (!grid[r] || !grid[r][c]) return;
       const cell = grid[r][c];
       if (cell.isRevealed) return;
       cell.isFlagged = !cell.isFlagged;
@@ -580,7 +602,8 @@
           cellEl.setAttribute("aria-label", "Cell " + (r + 1) + " " + (c + 1));
           cellEl.addEventListener("click", function (e) {
             e.preventDefault();
-            revealCell(r, c);
+            if (flagMode) toggleFlag(r, c);
+            else revealCell(r, c);
           });
           cellEl.addEventListener("contextmenu", function (e) {
             e.preventDefault();
@@ -595,12 +618,22 @@
       firstClick = true;
       gameOver = false;
       won = false;
+      flagMode = false;
       elapsed = 0;
       grid = [];
       faceBtn.classList.remove("lost", "won");
+      if (flagBtn) flagBtn.classList.remove("win98-ms-flag-active");
       counterEl.textContent = pad3(MINES);
       timerEl.textContent = "000";
       buildGrid();
+    }
+    if (flagBtn) {
+      flagBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        if (gameOver) return;
+        flagMode = !flagMode;
+        flagBtn.classList.toggle("win98-ms-flag-active", flagMode);
+      });
     }
     buildGrid();
     counterEl.textContent = pad3(MINES);
@@ -632,6 +665,7 @@
     faceBtn.addEventListener("click", function () { resetGame(); });
     const win = { el: el, id: id, folderName: "Minesweeper" };
     windowsContainer.appendChild(el);
+    centerWindow(el);
     bringToFront(el);
     addTaskbarEntry(win);
   }
@@ -715,6 +749,7 @@
 
     const win = { el: el, id: id, folderName: name + " - Notepad" };
     windowsContainer.appendChild(el);
+    centerWindow(el, 480, 360);
     bringToFront(el);
     addTaskbarEntry(win);
 
@@ -911,6 +946,7 @@
     });
 
     windowsContainer.appendChild(el);
+    centerWindow(el, 300, 220);
     bringToFront(el);
   }
 })();
