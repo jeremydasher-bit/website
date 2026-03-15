@@ -898,7 +898,7 @@
     overlay.classList.remove("hidden");
   }
 
-  // Kick off
+  // Kick off – load content only; do not open any windows (sticky note opens via desktop icon only)
   loadContent().then(function () {});
 
   function createStickyNote() {
