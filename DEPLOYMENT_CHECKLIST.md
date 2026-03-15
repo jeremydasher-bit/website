@@ -35,6 +35,19 @@ Use this before pushing to production or uploading to your host (e.g. GitHub Pag
 - **GitHub Pages**: Push to the `main` branch; in repo Settings → Pages, set source to `main` (and folder to `/ (root)` if applicable). The site will be at `https://<username>.github.io/<repo>/` or your custom domain if configured.
 - **Other host**: Upload the repo contents (or connect the repo to the host) so that `index.html` is the document root and `content.json` and `assets/` are served from the same origin.
 
+### Immiguard live bundle (Projects → Immiguard)
+
+The live site serves Immiguard from the **`immiguard/`** folder. After changing `lawyer-up-main/src/App.tsx` you must rebuild and copy into `immiguard/` or the live app won’t update:
+
+1. From repo root: `cd lawyer-up-main` then `npm run build` (or `yarn build`).
+2. Copy build output into `immiguard/`:
+   - `lawyer-up-main/build/index.html` → `immiguard/index.html`
+   - `lawyer-up-main/build/asset-manifest.json` → `immiguard/asset-manifest.json`
+   - `lawyer-up-main/build/static/*` → `immiguard/static/`
+3. Commit and push: `git add immiguard/` then `git commit -m "Deploy Immiguard: <short description>"` then `git push origin main`.
+
+Or run the script: `.\deploy-immiguard.ps1` (after running `npm run build` in `lawyer-up-main`).
+
 ## 7. After deploy
 
 - Open the live URL and repeat steps 2–3 on the production site.
