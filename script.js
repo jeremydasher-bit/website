@@ -4,7 +4,12 @@
   const FOLDER_PATHS = {
     Photos: "C:\\Jeremy\\Photos",
     Blogs: "C:\\Jeremy\\Blogs",
-    Documents: "C:\\Jeremy\\Documents"
+    Documents: "C:\\Jeremy\\Documents",
+    ProjectsFolder: "C:\\Jeremy\\Projects"
+  };
+
+  const FOLDER_DISPLAY_NAMES = {
+    ProjectsFolder: "Projects"
   };
 
   const PHOTO_SUBFOLDERS = ["Projects", "People", "Clients", "For fun!"];
@@ -22,7 +27,8 @@
     Clients: [],
     "For fun!": [],
     Blogs: [{ name: "Welcome.txt", type: "doc", url: "./assets/welcome.txt" }],
-    Documents: [{ name: "About me.txt", type: "doc", url: "./assets/about.txt" }]
+    Documents: [{ name: "About me.txt", type: "doc", url: "./assets/about.txt" }],
+    ProjectsFolder: [{ name: "Immiguard", type: "application", url: "./immiguard/" }]
   };
 
   let contentManifest = JSON.parse(JSON.stringify(DEFAULT_MANIFEST));
@@ -57,6 +63,7 @@
     if (!contentManifest.People) contentManifest.People = [];
     if (!contentManifest.Clients) contentManifest.Clients = [];
     if (!contentManifest["For fun!"]) contentManifest["For fun!"] = [];
+    if (!contentManifest.ProjectsFolder) contentManifest.ProjectsFolder = DEFAULT_MANIFEST.ProjectsFolder;
   }
 
   // Clock
@@ -87,8 +94,8 @@
     item.addEventListener("click", function () {
       const action = this.getAttribute("data-action");
       startMenu.classList.add("hidden");
-      if (action === "photos" || action === "blogs" || action === "documents" || action === "documents-folder") {
-        const folder = (action === "documents" || action === "documents-folder") ? "Documents" : action.charAt(0).toUpperCase() + action.slice(1);
+      if (action === "photos" || action === "blogs" || action === "documents" || action === "documents-folder" || action === "projects-folder") {
+        const folder = (action === "documents" || action === "documents-folder") ? "Documents" : (action === "projects-folder") ? "ProjectsFolder" : action.charAt(0).toUpperCase() + action.slice(1);
         openFolder(folder);
       } else if (action === "minesweeper") {
         openMinesweeper();
@@ -155,7 +162,8 @@
     } else {
       files = Array.isArray(files) ? files : [];
     }
-    const win = createExplorerWindow(folderName, path, files, { subfolders: subfolders, parentFolderName: parentFolderName });
+    const displayName = FOLDER_DISPLAY_NAMES[folderName] || folderName;
+    const win = createExplorerWindow(folderName, path, files, { subfolders: subfolders, parentFolderName: parentFolderName, displayName: displayName });
     windowsContainer.appendChild(win.el);
     bringToFront(win.el);
     addTaskbarEntry(win);
@@ -175,6 +183,7 @@
     options = options || {};
     const subfolders = options.subfolders || [];
     const parentFolderName = options.parentFolderName || null;
+    const displayName = options.displayName || folderName;
 
     const id = "win-" + Date.now() + "-" + Math.random().toString(36).slice(2);
     const el = document.createElement("div");
@@ -192,7 +201,7 @@
     el.innerHTML =
       "<div class='win98-titlebar'>" +
       "<span class='win98-titlebar-icon' style='background-image:url(" + folderIconSvg + ")'></span>" +
-      "<span class='win98-titlebar-title'>" + folderName + " - " + path + "</span>" +
+      "<span class='win98-titlebar-title'>" + displayName + " - " + path + "</span>" +
       "<div class='win98-titlebar-buttons'>" +
       "<button type='button' class='win98-titlebar-btn minimize' aria-label='Minimize'>—</button>" +
       "<button type='button' class='win98-titlebar-btn maximize' aria-label='Maximize'>□</button>" +
@@ -227,16 +236,23 @@
         tr.dataset.url = f.url;
         tr.dataset.type = f.type || "doc";
         tr.dataset.name = f.name;
-        const iconClass = "file-icon-" + (f.type === "video" ? "video" : f.type === "image" ? "image" : "doc");
+        const typeLabel = f.type === "application" ? "Application" : (f.type === "image" ? "JPEG Image" : f.type === "video" ? "Video" : "Document");
+        const iconClass = "file-icon-" + (f.type === "application" ? "application" : f.type === "video" ? "video" : f.type === "image" ? "image" : "doc");
         tr.innerHTML =
           "<td><span class='file-icon " + iconClass + "'></span>" + escapeHtml(f.name) + "</td>" +
-          "<td>" + (f.type === "image" ? "JPEG Image" : f.type === "video" ? "Video" : "Document") + "</td>";
+          "<td>" + typeLabel + "</td>";
         tbody.appendChild(tr);
-        const imageFiles = files.filter(function (file) { return file.type === "image"; });
-        const imageIndex = imageFiles.indexOf(f);
-        tr.addEventListener(isTouch ? "click" : "dblclick", function () {
-          openFile(f.url, f.type, f.name, imageFiles, imageIndex);
-        });
+        if (f.type === "application") {
+          tr.addEventListener(isTouch ? "click" : "dblclick", function () {
+            window.open(f.url, "_blank");
+          });
+        } else {
+          const imageFiles = files.filter(function (file) { return file.type === "image"; });
+          const imageIndex = imageFiles.indexOf(f);
+          tr.addEventListener(isTouch ? "click" : "dblclick", function () {
+            openFile(f.url, f.type, f.name, imageFiles, imageIndex);
+          });
+        }
       });
       client.appendChild(table);
     }
@@ -271,7 +287,7 @@
       closeWindow(el);
     });
 
-    return { el: el, id: id, folderName: folderName };
+    return { el: el, id: id, folderName: displayName };
   }
 
   function escapeHtml(s) {

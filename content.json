@@ -47,5 +47,8 @@
   ],
   "Documents": [
     { "name": "About me.txt", "type": "doc", "url": "./assets/about.txt" }
+  ],
+  "ProjectsFolder": [
+    { "name": "Immiguard", "type": "application", "url": "./immiguard/" }
   ]
 }
